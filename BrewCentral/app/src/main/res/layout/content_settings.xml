@@ -1,0 +1,161 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context="com.iotdesignshop.brewcentral.SettingsActivity"
+    tools:showIn="@layout/activity_settings">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="64dp">
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_height="64dp">
+
+            <TextView
+                android:text="@string/units_of_measure"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView7"
+                android:layout_weight="0.75"
+                android:paddingLeft="25dp"
+                android:layout_width="64dp" />
+
+            <Spinner
+                android:layout_height="wrap_content"
+                android:id="@+id/units_spinner"
+                android:layout_weight="0.25"
+                android:entries="@array/units_options"
+                android:layout_width="64dp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_height="64dp">
+
+            <TextView
+                android:text="@string/hot_liquor_tank_temp"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView8"
+                android:paddingLeft="25dp"
+                android:layout_weight="0.75" />
+
+            <Spinner
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/hlt_spinner"
+                android:layout_weight="0.25"
+                android:entries="@array/hot_tank_options" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_height="64dp">
+
+            <TextView
+                android:text="@string/mash_temperature_tolerance"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView9"
+                android:layout_weight="0.75"
+                android:paddingLeft="25dp" />
+
+            <Spinner
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/mash_tolerance_spinner"
+                android:layout_weight="0.25"
+                android:entries="@array/mash_tolerance_options" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_height="64dp">
+
+            <TextView
+                android:text="@string/mash_volume"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView10"
+                android:layout_weight="0.75"
+                android:paddingLeft="25dp" />
+
+            <Spinner
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/mash_volume_spinner"
+                android:layout_weight="0.25"
+                android:entries="@array/mash_volume_options" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_height="64dp">
+
+            <TextView
+                android:text="@string/sparge_goal_time"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView11"
+                android:layout_weight="0.75"
+                android:paddingLeft="25dp"/>
+
+            <Spinner
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/sparge_time_spinner"
+                android:layout_weight="0.25"
+                android:entries="@array/sparge_time_options" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical"
+            android:layout_height="64dp">
+
+            <TextView
+                android:text="@string/pre_boil_volume"
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView12"
+                android:layout_weight="0.75"
+                android:paddingLeft="25dp" />
+
+            <Spinner
+                android:layout_width="64dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/pre_boil_spinner"
+                android:layout_weight="0.25"
+                android:entries="@array/pre_boil_volume_options" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+</android.support.v4.widget.NestedScrollView>

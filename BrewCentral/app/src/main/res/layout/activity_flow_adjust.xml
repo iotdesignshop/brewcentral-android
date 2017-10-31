@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_flow_adjust"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.iotdesignshop.brewcentral.FlowAdjustActivity">
+
+    <TextView
+        android:text="0.0"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/current_flow"
+        android:textAppearance="@style/TextAppearance.AppCompat"
+        android:textSize="80sp"
+        android:layout_marginTop="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginBottom="16dp"
+        android:layout_marginStart="16dp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintRight_toRightOf="parent" />
+
+    <Button
+        android:text="+"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/increase_button"
+        android:layout_marginStart="48dp"
+        app:layout_constraintBottom_toBottomOf="@+id/current_flow"
+        app:layout_constraintTop_toTopOf="@+id/current_flow"
+        app:layout_constraintLeft_toRightOf="@+id/current_flow"
+        android:onClick="onIncreaseFlow" />
+
+    <Button
+        android:text="-"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/decrease_button"
+        app:layout_constraintRight_toLeftOf="@+id/current_flow"
+        app:layout_constraintBottom_toBottomOf="@+id/current_flow"
+        android:layout_marginEnd="48dp"
+        app:layout_constraintTop_toTopOf="@+id/current_flow"
+        android:onClick="onDecreaseFlow" />
+
+    <Button
+        android:text="Done"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/done_button"
+        android:textSize="18sp"
+        app:layout_constraintRight_toRightOf="@+id/current_flow"
+        app:layout_constraintLeft_toLeftOf="@+id/current_flow"
+        android:layout_marginTop="24dp"
+        app:layout_constraintTop_toBottomOf="@+id/current_flow"
+        android:onClick="onBackButton" />
+
+    <TextView
+        android:text="Flow Name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/flow_title"
+        android:textAppearance="@style/TextAppearance.AppCompat.Title"
+        app:layout_constraintBottom_toTopOf="@+id/current_flow"
+        app:layout_constraintRight_toRightOf="parent"
+        android:layout_marginBottom="32dp"
+        app:layout_constraintLeft_toLeftOf="parent" />
+</android.support.constraint.ConstraintLayout>
