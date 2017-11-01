@@ -38,14 +38,14 @@ public class CommandManager {
     public void resetMixerVolume()
     {
         // Send command to Arduino
-        String command = "v-mix 0.0 0.0";
+        String command = "v-mix 0.0 0.0 ";
         mUARTManager.writeData(command.getBytes());
     }
 
     public void resetMashVolume()
     {
         // Send command to Arduino
-        String command = "v-msh 0.0 0.0";
+        String command = "v-msh 0.0 0.0 ";
         mUARTManager.writeData(command.getBytes());
     }
 }

@@ -80,6 +80,7 @@ public class MashCountdownFragment extends Fragment implements CommandUpdateList
 
                 // Stop any flows in process
                 mCommandManager.setMixerFlow(0.0f);
+                mCommandManager.setMashFlow(0.0f);
 
                 if (mListener != null)
                 {
@@ -106,6 +107,7 @@ public class MashCountdownFragment extends Fragment implements CommandUpdateList
 
                 mCommandManager.setMixerTemp(50.0f);
                 mCommandManager.setMixerFlow(0.5f);
+                mCommandManager.setMashFlow(1.0f);
 
             }
         });
@@ -124,6 +126,8 @@ public class MashCountdownFragment extends Fragment implements CommandUpdateList
 
                 mCommandManager.setMixerTemp(210.0f);
                 mCommandManager.setMixerFlow(0.5f);
+                mCommandManager.setMashFlow(1.0f);
+
 
             }
         });
@@ -178,6 +182,7 @@ public class MashCountdownFragment extends Fragment implements CommandUpdateList
 
             // Stop flow
             mCommandManager.setMixerFlow(0.0f);
+            mCommandManager.setMashFlow(0.0f);
             mCommandManager.resetMixerVolume();
             mDispenseVolume = 0.0f;
         }

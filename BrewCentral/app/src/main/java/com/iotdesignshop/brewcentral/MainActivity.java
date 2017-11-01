@@ -121,6 +121,11 @@ public class MainActivity extends AppCompatActivity
         Toolbar myToolbar = (Toolbar) findViewById(R.id.main_toolbar);
         setSupportActionBar(myToolbar);
 
+        // Start communications with hardware
+        mUARTManager = new UARTManager();
+        mUARTManager.setListener(this);
+        mUARTManager.openDevice(UART_DEVICE, UART_BAUD);
+
     }
 
     @Override
@@ -133,20 +138,12 @@ public class MainActivity extends AppCompatActivity
     protected void onStart() {
         super.onStart();
 
-        // Start communications with hardware
-        mUARTManager = new UARTManager();
-        mUARTManager.setListener(this);
-        mUARTManager.openDevice(UART_DEVICE, UART_BAUD);
+
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-
-        // End communications with hardware
-        mUARTManager.setListener(null);
-        mUARTManager.closeDevice();
-        mUARTManager = null;
     }
 
     // Subscribe to a hardware update message
@@ -206,21 +203,23 @@ public class MainActivity extends AppCompatActivity
         if (resultCode != RESULT_OK)
             return;
 
+        CommandManager commandManager = new CommandManager(mUARTManager);
+
         // Check which request we're responding to
         if (requestCode == MIXER_TEMP_ADJUST)
         {
             float temp = data.getFloatExtra("temp", 0.0f);
-            mMixerTemp.setSetPoint(temp);
+            commandManager.setMixerTemp(temp);
         }
         else if (requestCode == MIXER_FLOW_ADJUST)
         {
             float flow = data.getFloatExtra("flow", 0.0f);
-            mMixerFlow.setSetPoint(flow);
+            commandManager.setMixerFlow(flow);
         }
         else if (requestCode == MASH_FLOW_ADJUST)
         {
             float flow = data.getFloatExtra("flow", 0.0f);
-            mMashFlow.setSetPoint(flow);
+            commandManager.setMashFlow(flow);
         }
     }
 
@@ -281,6 +280,9 @@ public class MainActivity extends AppCompatActivity
                 // Hook fragment up to command manager on UART channel
                 miFragment.setCommandManager(new CommandManager(mUARTManager));
 
+                // Turn off flow update for now
+                removeUpdateListener("f-msh", mMashFlow);
+
                 mCurrentStateFragment = miFragment;
 
                 break;
@@ -310,7 +312,6 @@ public class MainActivity extends AppCompatActivity
                 mcFragment.setCommandManager(new CommandManager(mUARTManager));
 
 
-
                 mCurrentStateFragment = mcFragment;
                 break;
 
@@ -337,6 +338,11 @@ public class MainActivity extends AppCompatActivity
                 // Add required listeners
                 addUpdateListener("v-msh", spFragment);
                 addUpdateListener("f-msh", spFragment);
+
+                // Restore update listener on mash flow
+                addUpdateListener("f-msh", mMashFlow);
+
+
 
                 // Hook fragment up to command manager on UART channel
                 spFragment.setCommandManager(new CommandManager(mUARTManager));
@@ -377,30 +383,28 @@ public class MainActivity extends AppCompatActivity
         // Create a temporary recipe
         mCurrentRecipe = new BeerRecipe();
 
-        mCurrentRecipe.setRecipeName("Townie Brown Ale");
+        mCurrentRecipe.setRecipeName("IoT English Brown Ale");
         mCurrentRecipe.setUnits(BeerRecipe.Units.UNIT_IMPERIAL);
 
-        mCurrentRecipe.addGrainIngredient(new BeerRecipe.GrainIngredient("Maris Otter", 4.02f*2.2f));
-        mCurrentRecipe.addGrainIngredient(new BeerRecipe.GrainIngredient("Victory Malt", .13f*2.2f));
-        mCurrentRecipe.addGrainIngredient(new BeerRecipe.GrainIngredient("Crystal 30", .33f*2.2f));
-        mCurrentRecipe.addGrainIngredient(new BeerRecipe.GrainIngredient("Crystal 60", .33f*2.2f));
-        mCurrentRecipe.addGrainIngredient(new BeerRecipe.GrainIngredient("Chocolate Malt", .13f*2.2f));
+        mCurrentRecipe.addGrainIngredient(new BeerRecipe.GrainIngredient("UK Pale Malt", 3.15f*2.2f));
+        mCurrentRecipe.addGrainIngredient(new BeerRecipe.GrainIngredient("Caramel 30L", 1.4f*2.2f));
+        mCurrentRecipe.addGrainIngredient(new BeerRecipe.GrainIngredient("Chocolate Malt", .25f*2.2f));
 
-        mCurrentRecipe.addHopIngredient(new BeerRecipe.HopIngredient("Nugget", 0.0f, 0.4f, 60f));
-        mCurrentRecipe.addHopIngredient(new BeerRecipe.HopIngredient("Golding", 0.0f, 1f, 30f));
-        mCurrentRecipe.addHopIngredient(new BeerRecipe.HopIngredient("Golding", 0.0f, 1.5f, 0f));
+        mCurrentRecipe.addHopIngredient(new BeerRecipe.HopIngredient("Fuggles", 4.5f, 1.2f, 90f));
+        mCurrentRecipe.addHopIngredient(new BeerRecipe.HopIngredient("East Kent Golding", 5f, 1.8f, 5f));
+
 
         mCurrentRecipe.setStrikeTemp(165f);
-        mCurrentRecipe.setMashTemp(153f);
+        mCurrentRecipe.setMashTemp(156f);
         //mCurrentRecipe.setMashTime(60f);
-        mCurrentRecipe.setMashTime(1f);
+        mCurrentRecipe.setMashTime(15);
         mCurrentRecipe.setMashoutTime(0);
         mCurrentRecipe.setSpargeTemp(177f);
 
         mCurrentRecipe.setFinalVolume(6.0f);
-        mCurrentRecipe.setBoilTime(60f);
+        mCurrentRecipe.setBoilTime(90f);
 
-        mCurrentRecipe.setYeast("American Ale Yeast");
+        mCurrentRecipe.setYeast("British Ale II Yeast - WYeast 1335");
 
         // Set title bar to match
         setTitle("BrewCentral - Brewing: " + mCurrentRecipe.getRecipeName());

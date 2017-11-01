@@ -163,7 +163,7 @@ public class TemperatureFragment extends Fragment implements CommandUpdateListen
     public void commandReceived(String[] parameters)
     {
         // Basic validation
-        if (parameters.length == 3)
+        if (parameters.length >= 2)
         {
             float value = Float.parseFloat(parameters[1]);
             setCurrentTemperature(Utility.tempCToDegreesF(value));

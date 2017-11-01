@@ -136,18 +136,16 @@ public class MashInFragment extends Fragment implements CommandUpdateListener {
     void tempUpdate(float mashTemp)
     {
         // Temp adjustment - watch the last 20-25% of pour and adjust temp to hit setpoint
-        if (mTotalDispensedWater > 0.75f*mStrikeVol && mTotalDispensedWater < 0.80f*mStrikeVol)
+        if (mTotalDispensedWater > 0.7f*mStrikeVol && mTotalDispensedWater < 0.75f*mStrikeVol)
         {
-            float deltaT = mTargetMashTemp - mashTemp;
+            float currentPct = mTotalDispensedWater / mStrikeVol;
+            float remainPct = 1.0f - currentPct;
 
-            float remainingVol = Utility.volumeGalToQuarts(mStrikeVol - mTotalDispensedWater);
-
-            // Determine how much hotter/colder we need to be to achieve target temp
-            // From Palmer's equation - http://howtobrew.com/book/section-3/the-methods-of-mashing/calculations-for-boiling-water-additions
-            float infusionTemp = mTargetMashTemp + deltaT * (.2f*mGrainWeight + Utility.volumeGalToQuarts(mTotalDispensedWater)) / remainingVol;
+            float infusionTemp = (mTargetMashTemp - currentPct * mashTemp) / (remainPct);
 
             // Clamp
-            infusionTemp = min(infusionTemp, 210.0f);
+            infusionTemp = min(infusionTemp, 200.0f);
+            infusionTemp = max(infusionTemp, 70.0f);
 
             Log.d("ADJUST", "Adjusted temperature: "+Float.toString(infusionTemp));
             mCommandManager.setMixerTemp(infusionTemp);
@@ -177,7 +175,7 @@ public class MashInFragment extends Fragment implements CommandUpdateListener {
     public void commandReceived(String[] parameters)
     {
         // Quick sanity check
-        if (parameters.length == 3) {
+        if (parameters.length >= 2) {
             if (parameters[0].equals("v-mix")) {
                 // Update volume
                 volumeUpdate(Utility.volumeLtoGal(Float.parseFloat(parameters[1])));
@@ -194,6 +192,7 @@ public class MashInFragment extends Fragment implements CommandUpdateListener {
     {
         // Start flow
         mCommandManager.setMixerFlow(mFlowRate);
+        mCommandManager.setMashFlow(1.0f);
 
     }
 
@@ -202,6 +201,7 @@ public class MashInFragment extends Fragment implements CommandUpdateListener {
         // Stop flow
         mCommandManager.setMixerFlow(0.0f);
         mCommandManager.resetMixerVolume();
+        mCommandManager.setMashFlow(0.0f);
 
     }
 }

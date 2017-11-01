@@ -27,7 +27,7 @@ public class Utility {
     private static final float PREBOIL_VOL_DEFAULT = 6.5f;
 
     private static final String mashFlowKey = "com.iotdesignshop.brewcentral.MASH_IN_RATE";
-    private static final float MASH_FLOW_DEFAULT = 2.5f;
+    private static final float MASH_FLOW_DEFAULT = 0.5f;
 
 
     /**
@@ -89,7 +89,7 @@ public class Utility {
      */
     static float getMashVolumePref(Context context)
     {
-        SharedPreferences prefs = context.getSharedPreferences(prefsFile, Context.MODE_PRIVATE);
+       SharedPreferences prefs = context.getSharedPreferences(prefsFile, Context.MODE_PRIVATE);
         float vol = prefs.getFloat(mashVolumeKey, HLT_MASH_VOLUME_DEFAULT);
         return vol;
     }
@@ -114,11 +114,9 @@ public class Utility {
      */
     static float getSpargeTimePref(Context context)
     {
-        /*SharedPreferences prefs = context.getSharedPreferences(prefsFile, Context.MODE_PRIVATE);
+        SharedPreferences prefs = context.getSharedPreferences(prefsFile, Context.MODE_PRIVATE);
         float t = prefs.getFloat(spargeTimeKey, SPARGE_TIME_DEFAULT);
         return t;
-        */
-        return 2.0f;
     }
 
     /**

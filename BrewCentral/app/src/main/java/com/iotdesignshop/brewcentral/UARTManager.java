@@ -79,6 +79,7 @@ public class UARTManager {
                 mUARTDevice.setDataSize(8);
                 mUARTDevice.setStopBits(1);
                 mUARTDevice.setParity(UartDevice.PARITY_NONE);
+                mUARTDevice.setHardwareFlowControl(UartDevice.HW_FLOW_CONTROL_NONE);
 
                 mUartCallback = new UartDeviceCallback() {
                     @Override
@@ -142,7 +143,9 @@ public class UARTManager {
     public int writeData(byte[] buffer)
     {
         try {
-            return mUARTDevice.write(buffer, buffer.length);
+            int bytes = mUARTDevice.write(buffer, buffer.length);
+
+            return bytes;
         } catch (IOException e) {
             e.printStackTrace();
             return 0;

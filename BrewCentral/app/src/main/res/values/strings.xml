@@ -29,8 +29,8 @@
     <string name="dispense_cold">Dispense Cold Water</string>
     <string name="start_sparge_flow">Start Sparge Water</string>
     <string name="sparging">Sparge Flow Active</string>
-    <string name="boil_instruction">Place the kettle on the burner and heat until a rolling boil has formed.</string>
-    <string name="boil_ready">The Wort Is Boiling!</string>
+    <string name="boil_instruction">Your wort has been transferred and is ready for boil!\nThank you for using BrewCentral for your brew.</string>
+    <string name="boil_ready">Reset System</string>
     <string-array name="hot_tank_options">
         <item>190°F</item>
         <item>200°F</item>
